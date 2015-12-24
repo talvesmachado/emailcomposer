@@ -1,0 +1,242 @@
+// -------------------------------------------------
+// -------------------------------------------------
+//  /$$      /$$ /$$$$$$ /$$   /$$ /$$$$$$ /$$   /$$
+// | $$$    /$$$|_  $$_/| $$  / $$|_  $$_/| $$$ | $$
+// | $$$$  /$$$$  | $$  |  $$/ $$/  | $$  | $$$$| $$
+// | $$ $$/$$ $$  | $$   \  $$$$/   | $$  | $$ $$ $$
+// | $$  $$$| $$  | $$    >$$  $$   | $$  | $$  $$$$
+// | $$\  $ | $$  | $$   /$$/\  $$  | $$  | $$\  $$$
+// | $$ \/  | $$ /$$$$$$| $$  \ $$ /$$$$$$| $$ \  $$
+// |__/     |__/|______/|__/  |__/|______/|__/  \__/
+// -------------------------------------------------
+// -------------------------------------------------
+// LESS Mixins : Don't touch or you'll be banned !
+$basefont: 10; // Valeur par défaut, plus simple pour calculer
+// CONVERT FONTSIZE PX TO REM
+@mixin fts($size)
+{
+$remValue: ($size / $basefont);
+//$pxValue: ($size);
+font-size: #{"${remValue}rem"};
+//font-size: #{"${pxValue}px"};
+}
+@mixin lh($line_height)
+{
+$remValue: ($line_height / $basefont);
+//$pxValue: ($line_height);
+line-height: #{"${remValue}rem"};
+//line-height: #{"${pxValue}px"};
+}
+@mixin margin($top, $right, $bottom, $left)
+{
+$val_top    : $top    / $basefont;
+$val_right  : $right  / $basefont;
+$val_bottom : $bottom / $basefont;
+$val_left   : $left   / $basefont;
+margin:#{"${val_top}rem ${val_right}rem ${val_bottom}rem ${val_left}rem"};
+}
+@mixin m_t($top)
+{
+$val_top : $top / $basefont;
+margin-top:#{"${val_top}rem"};
+}
+@mixin m_b($bottom)
+{
+$val_bottom : $bottom / $basefont;
+margin-bottom:#{"${val_bottom}rem"};
+}
+
+@mixin m_r($right)
+{
+$val_right : $right / $basefont;
+margin-right:#{"${val_right}rem"};
+}
+@mixin m_l($left)
+{
+$val_left : $left / $basefont;
+margin-left:#{"${val_left}rem"};
+}
+@mixin padding($top, $right, $bottom, $left)
+{
+$val_top    : $top    / $basefont;
+$val_right  : $right  / $basefont;
+$val_bottom : $bottom / $basefont;
+$val_left   : $left   / $basefont;
+padding:#{"${val_top}rem ${val_right}rem ${val_bottom}rem ${val_left}rem"};
+}
+@mixin p_t($top)
+{
+$val_top : $top / $basefont;
+padding-top:#{"${val_top}rem"};
+}
+@mixin p_b($bottom)
+{
+$val_bottom : $bottom / $basefont;
+padding-bottom:#{"${val_bottom}rem"};
+}
+@mixin p_r($right)
+{
+$val_right : $right / $basefont;
+padding-right:#{"${val_right}rem"};
+}
+@mixin p_l($left)
+{
+$val_left : $left / $basefont;
+padding-left:#{"${val_left}rem"};
+}
+@mixin w($width)
+{
+$val_width : $width / $basefont;
+width:#{"${val_width}rem"};
+}
+@mixin h($height)
+{
+$val_height : $height / $basefont;
+height:#{"${val_height}rem"};
+}
+$url : '../img/';
+//background:url('${url}image.jpg') 0 0 no-repeat;
+$svg : '../svg/';
+@mixin boxsizing()
+{
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+-o-box-sizing: border-box;
+box-sizing: border-box;
+}
+@mixin boxsizing2()
+{
+-webkit-box-sizing: content-box;
+-moz-box-sizing: content-box;
+-o-box-sizing: content-box;
+box-sizing: content-box;
+}
+@mixin borderradius($radius)
+{
+-webkit-border-radius: #{$radius};
+-moz-border-radius: #{$radius};
+border-radius: #{$radius};
+}
+@mixin boxshadow( $x: 0, $y: 0, $blur: 0, $color: $black)
+{
+-webkit-box-shadow: $x, $y, $blur, $color;
+-moz-box-shadow: $x, $y, $blur, $color;
+box-shadow: $x, $y, $blur, $color;
+}
+@mixin transition($transition)
+{
+-webkit-transition: $transition;
+-moz-transition: $transition;
+-ms-transition: $transition;
+-o-transition: $transition;
+transition: $transition;
+}
+@mixin transition2($transition1, $transition2)
+{
+-webkit-transition: $transition1, $transition2;
+-moz-transition: $transition1, $transition2;
+-ms-transition: $transition1, $transition2;
+-o-transition: $transition1, $transition2;
+transition: $transition1, $transition2;
+}
+@mixin transform-origin($x, $y)
+{
+-webkit-transform-origin: $x $y;
+-moz-transform-origin: $x $y;
+-ms-transform-origin: $x $y;
+-o-transform-origin: $x $y;
+transform-origin: $x $y;
+}
+@mixin translate3d($x : 0, $y : 0, $z : 0)
+{
+-webkit-transform: translate3d($x, $y, $z);
+-moz-transform: translate3d($x, $y, $z);
+-ms-transform: translate3d($x, $y, $z);
+-o-transform: translate3d($x, $y, $z);
+transform: translate3d($x, $y, $z);
+}
+@mixin translateX($x)
+{
+-webkit-transform: translateX($x);
+-moz-transform: translateX($x);
+-ms-transform: translateX($x);
+-o-transform: translateX($x);
+transform: translateX($x);
+}
+@mixin translateZ($z : 0)
+{
+-webkit-transform: translateZ($z);
+-moz-transform: translateZ($z);
+-ms-transform: translateZ($z);
+-o-transform: translateZ($z);
+transform: translateZ($z);
+}
+@mixin scale($factor)
+{
+-webkit-transform: scale($factor);
+-moz-transform: scale($factor);
+-ms-transform: scale($factor);
+-o-transform: scale($factor);
+transform: scale($factor);
+}
+@mixin rotate($deg)
+{
+-webkit-transform: rotate($deg);
+-moz-transform: rotate($deg);
+-ms-transform: rotate($deg);
+-o-transform: rotate($deg);
+transform: rotate($deg);
+}
+@mixin rotate_y($deg)
+{
+-webkit-transform: rotateY($deg);
+-moz-transform: rotateY($deg);
+-ms-transform: rotateY($deg);
+-o-transform: rotateY($deg);
+transform: rotateY($deg);
+}
+@mixin rotate_x($deg)
+{
+-webkit-transform: rotateX($deg);
+-moz-transform: rotateX($deg);
+-ms-transform: rotateX($deg);
+-o-transform: rotateX($deg);
+transform: rotateX($deg);
+}
+@mixin perspective($px)
+{
+-webkit-perspective: ($px);
+-moz-perspective: ($px);
+perspective: ($px);
+}
+@mixin preserve_3d()
+{
+-webkit-transform-style: preserve-3d;
+-moz-transform-style: preserve-3d;
+transform-style: preserve-3d;
+}
+@mixin cover()
+{
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+@mixin contain()
+{
+-webkit-background-size: contain;
+-moz-background-size: contain;
+-o-background-size: contain;
+background-size: contain;
+}
+@mixin inlineblock()
+{
+display:-moz-inline-stack;
+display:inline-block;
+}
+@mixin img_fluide()
+{
+width: 100%;
+max-width: 100%;
+height: auto;
+}

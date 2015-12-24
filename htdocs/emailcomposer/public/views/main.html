@@ -1,0 +1,126 @@
+<md-fab-speed-dial md-direction="up" class="md-fab-bottom-right md-fling">
+  <md-fab-trigger>
+    <md-button aria-label="Add..." class="md-fab md-warn"><md-icon md-font-icon="material-icons">menu</md-icon></md-button>
+  </md-fab-trigger>
+  <md-fab-actions >
+    <md-button aria-label="Add header" class="md-fab  md-primary md-mini" ng-click="forcedownload()">
+      <md-tooltip md-direction="left">
+          Export to img
+        </md-tooltip>
+      <md-icon class="material-icons">image</md-icon>
+    </md-button>
+
+    <md-button aria-label="Add footer" class="md-fab md-mini" ng-click="showItemsMenu(3)">
+      <md-tooltip md-direction="left">
+          bottom
+        </md-tooltip>
+      <md-icon class="material-icons">vertical_align_bottom</md-icon>
+    </md-button>
+    <md-button aria-label="Add content" class="md-fab md-mini" ng-click="showItemsMenu(2)">
+      <md-tooltip md-direction="left">
+          content
+        </md-tooltip>
+      <md-icon class="material-icons">vertical_align_center</md-icon>
+    </md-button>
+    <md-button aria-label="Add header" class="md-fab md-mini" ng-click="showItemsMenu(1)">
+      <md-tooltip md-direction="left">
+          header
+        </md-tooltip>
+      <md-icon class="material-icons">vertical_align_top</md-icon>
+    </md-button>
+  </md-fab-actions>
+</md-fab-speed-dial>
+<div layout="row">
+  <div class="side-control" flex="20">
+    <!-- TRASH BOX -->
+    <div class="trash" dnd-list="[]" ng-mouseleave="trashOff()"></div>
+    <!--/ TRASH BOX -->
+    <!-- MENU -->
+    <div class="menu">
+      <div class="items_blocks">
+        <ul class="items headers" ng-class="{active : isSelected(1)}">
+          <!-- <input type="text" placeholder="Search header..." class="search"> -->
+          <li class="item" ng-repeat="header in headers" dnd-draggable="header" dnd-effect-allowed="copy">
+
+            <md-card>
+             <img ng-src="{{header.src}}" class="md-card-image" alt="image caption">
+             <md-card-content>
+               <h4>{{header.name}}</h4>
+               <p>{{header.dsc}}</p>
+             </md-card-content>
+            </md-card>
+
+          </li>
+        </ul>
+        <ul class="items contents" ng-class="{active : isSelected(2)}">
+          <!-- <input type="text" placeholder="Search content..." class="search"> -->
+          <li class="item" ng-repeat="content in contents" dnd-draggable="content" dnd-effect-allowed="copy">
+            <md-card>
+             <img ng-src="{{content.src}}" class="md-card-image" alt="image caption">
+             <md-card-content>
+               <h4>{{content.name}}</h4>
+               <p>{{content.dsc}}</p>
+             </md-card-content>
+            </md-card>
+          </li>
+        </ul>
+        <ul class="items footers" ng-class="{active : isSelected(3)}">
+          <!-- <input type="text" placeholder="Search footer..." class="search"> -->
+          <li class="item" ng-repeat="footer in footers" dnd-draggable="footer" dnd-effect-allowed="copy">
+            <md-card>
+             <img ng-src="{{footer.src}}" class="md-card-image" alt="image caption">
+             <md-card-content>
+               <h4>{{footer.name}}</h4>
+               <p>{{footer.dsc}}</p>
+             </md-card-content>
+            </md-card>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--/ MENU -->
+
+  </div>
+  <div flex="80">
+
+    <!-- EMAIL CONTENT COMPOSER -->
+<md-content md-scroll-y>
+    <div class="email">
+<div layout-align="center center" layout="column" >
+      <div><md-icon class="material-icons">desktop_mac</md-icon><md-icon class="material-icons">phone_iphone</md-icon></div>
+      <div><md-switch ng-model="isRWD" ng-true-value="{'width':320, 'height':480, 'overflow': 'scroll'}" ng-false-value="{'width':640, 'height':'auto', 'overflow': 'auto'}" aria-label="Switch 1" ng-change="switchChange()"></md-switch></div>
+</div>
+      <div class="drop-zone">
+        <div dnd-list="list" id="contenttodraw">
+
+          <!-- background wrapper (100% background-color) -->
+          <table cellpadding="0" cellspacing="0" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" border="0" id="backgroundTable" width="100%">
+            <tr>
+              <td align="center" valign="top" class="main-td">
+                <!-- MAIN WRAPPER TABLES (640px) -->
+                <table align="center" cellpadding="0" cellspacing="0" border="0" class="container" width="{{ isRWD }}">
+                  <!--  LIGNE DU TEMPLATE EMAIL -->
+                  <tr ng-repeat="item in list" dnd-draggable="item" dnd-effect-allowed="move" dnd-moved="list.splice($index, 1); hideTrash()" dnd-selected="selected = item" ng-class="{selected: selected === item}" ng-include="item.type" dnd-dragstart="showTrash()" dnd-drop="">
+                  </tr>
+                  <!--  / LIGNE DU TEMPLATE EMAIL -->
+                </table>
+                <!-- /MAIN WRAPPER TABLES -->
+              </td>
+            </tr>
+          </table>
+          <!-- /background wrapper -->
+
+
+
+        </div>
+      </div>
+    </div>
+</md-content>
+
+    <!--/ EMAIL CONTENT COMPOSER-->
+  </div>
+</div>
+
+
+
+<canvas></canvas>
