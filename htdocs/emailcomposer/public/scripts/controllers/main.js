@@ -9,28 +9,15 @@
  */
 angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http, $location ) {
 
+  $scope.templateID = initOBJ;
 
-  $scope.init = function(initID) {
-    console.log('checktemplate');
-    console.log(initOBJ);
-    $scope.templateID = initID;
-    console.log($scope.templateID);
+  $scope.init = function() {
 
-    var returnedObj = null;
-
-    $http.post('/services/getcontent', {
-      id: $scope.templateID
-    }).then(function(res) {
-      // it return obj
-      console.log(res);
-      returnedObj = res;
-    }, function(err) {
-      // No obj
-      console.log(err);
-    });
+//    $http.get('/services/template/').then( function(res){console.log("ok"); console.log(res)}, function(err){console.log(err)});
+    $http.get('/services/template/'+$scope.templateID).then( function(res){console.log("ok"); console.log(res)}, function(err){console.log(err)});
 
   }
-$scope.init();
+ if($scope.templateID) $scope.init();
   // changement de type d'item à afficher (header, content, footer)
   $scope.showItemsMenu = function(item) {
     $scope.selectedType = item;
