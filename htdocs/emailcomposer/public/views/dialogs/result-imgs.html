@@ -1,0 +1,8 @@
+<md-dialog aria-label="List dialog">
+  <md-dialog-content>
+    <a class="md-button" target="_blank" ng-repeat="(key, value) in ctrl.parent.imgToDownload">{{ key }} {{ key }} </a>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button ng-click="closeDialog()" class="md-primary">Terminer</md-button>
+  </md-dialog-actions>
+</md-dialog>

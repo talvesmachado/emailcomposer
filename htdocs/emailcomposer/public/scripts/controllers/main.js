@@ -6,7 +6,7 @@
  * # MainCtrl
  * Controller of the emailcomposerApp
  */
-angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http, $location) {
+angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http, $location, $mdDialog) {
   // Objest isRWD par défaut (affichage du mail en 640);
   $scope.isRWD = {
     'width': 640,
@@ -23,6 +23,8 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
   // objets de base
   $scope.templateID = $location.path().split("/")[2] || null;
   $scope.templateObj = null;
+  // Tableau comportant les images à downloader
+  $scope.imgToDownload  = null;
   // Vérification en Base de l'existance du template
   $scope.init = function() {
       $http.get('/services/template/' + $scope.templateID).then(function(res) {
@@ -98,10 +100,22 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
     // Si le template est existant => téléchargement de l'image
     // Si le template n'existe pas => enregistrement en base
   $scope.forcedownload = function() {
-      if ($scope.templateID) {
-        $scope.synchPutToMongo();
+      if ($scope.templateObj) {
+        $scope.showAlert();
+        //$scope.synchPutToMongo();
+        $http.get('/services/snapshot/' + $scope.templateID)
+          .then(function(res) {
+            // it return obj
+            $scope.imgToDownload = res.data;
+            console.log($scope.imgToDownload)
+            $scope.showImagesLinks();
+
+          }, function(err) {
+            // No obj
+            console.log(err);
+          });
       } else {
-        scope.synchPostToMongo();
+        $scope.synchPostToMongo();
       }
     }
     // Ecoute du changement de la liste du template
@@ -109,6 +123,29 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
     $scope.updateCanvas();
   });
 
+  $scope.closeDialog = function() {
+    $mdDialog.hide();
+  }
+  $scope.showAlert = function(ev) {
+
+    $mdDialog.show({
+      templateUrl: '/views/dialogs/load.html',
+      targetEvent: ev,
+      controller: function () { this.parent = $scope; },
+      controllerAs: 'ctrl',
+      clickOutsideToClose: false
+    });
+  };
+  $scope.showImagesLinks = function(ev) {
+    $mdDialog.show({
+      templateUrl: '/views/dialogs/result-imgs.html',
+      targetEvent: ev,
+      controller: function () { this.parent = $scope; },
+      controllerAs: 'ctrl',
+      clickOutsideToClose: true
+    });
+
+  };
 
   /*
   .d8888b.        d8888 888      888           88888888888 .d88888b.       8888888b.  8888888888 .d8888b. 88888888888             d8888 8888888b.  8888888b.
@@ -128,20 +165,21 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
        d88P        888   "   888 Y88b. .d88P 888   Y8888 Y88b  d88P Y88b. .d88P 888  .d88P 888   d88P
       d88P         888       888  "Y88888P"  888    Y888  "Y8888P88  "Y88888P"  8888888P"  8888888P"
 */
+  // MAJ du modèle dans MongoDB
   $scope.synchPutToMongo = function() {
-    $http.put('/services/template/' + $scope.templateID, {
-        list: $scope.list
-      })
-      .then(function(res) {
-        // it return obj
-        console.log("###### PUT ######");
-        console.log(res);
-      }, function(err) {
-        // No obj
-        console.log(err);
-      });
-  }
-
+      $http.put('/services/template/' + $scope.templateID, {
+          list: $scope.list
+        })
+        .then(function(res) {
+          // it return obj
+          console.log("###### PUT ######");
+          console.log(res);
+        }, function(err) {
+          // No obj
+          console.log(err);
+        });
+    }
+    // Création du modèle dans MongoDB
   $scope.synchPostToMongo = function() {
       $http.post('/services/template/', {
           list: $scope.list
@@ -156,7 +194,6 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
           // No obj
           console.log(err);
         });
-
     }
     /*
         8888888b.        d888888888888888    d8888 .d8888b.
@@ -168,84 +205,26 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
         888  .d88P d8888888888    888  d8888888888Y88b  d88P
         8888888P" d88P     888    888 d88P     888 "Y8888P"
     */
-  $scope.headers = [{
-    id: 1,
-    name: 'Bloc 100%',
-    src: '/images/header.gif',
-    dsc: 'Bloc header une seule ligne',
-    srcTpl: '/images/header.gif',
-    type: '/views/items/header.html',
-  }];
-  $scope.footers = [{
-    id: 2,
-    name: 'Bloc 100%',
-    src: '/images/footer.gif',
-    dsc: 'Bloc footer une seule ligne',
-    srcTpl: '/images/footer.gif',
-    type: '/views/items/footer.html',
-  }];
-  $scope.contents = [{
-    id: 3,
-    name: 'Bloc 100%',
-    src: '/images/100.gif',
-    dsc: 'Bloc de contenu une seule ligne',
-    srcTpl: '/images/100.gif',
-    type: '/views/items/100.html',
-  }, {
-    id: 4,
-    name: 'Bloc 100% bordures',
-    src: '/images/100-brd.gif',
-    dsc: 'Bloc de contenu une seule ligne avec bordure',
-    srcTpl: '/images/100-brd.gif',
-    type: '/views/items/100-brd.html',
-  }, {
-    id: 5,
-    name: 'Bloc 50% 50%',
-    src: '/images/50-50.gif',
-    dsc: 'Bloc de contenu en deux colonnes',
-    srcTpl: '/images/50-50.gif',
-    type: '/views/items/50-50.html',
-  }, {
-    id: 6,
-    name: 'Bloc 50% 50%  bordures',
-    src: '/images/50-50-brd.gif',
-    dsc: 'Bloc de contenu en deux colonnes avec bordures',
-    srcTpl: '/images/50-50-brd.gif',
-    type: '/views/items/50-50-brd.html',
-  }, {
-    id: 7,
-    name: 'Bloc 70% 30%',
-    src: '/images/70-30.gif',
-    dsc: 'Bloc de contenu en deux colonnes de tailles différentes',
-    srcTpl: '/images/70-30.gif',
-    type: '/views/items/70-30.html',
-  }, {
-    id: 8,
-    name: 'Bloc 70% 30% bordures',
-    src: '/images/70-30-brd.gif',
-    dsc: 'Bloc de contenu en deux colonnes de tailles différentes avec bordures',
-    srcTpl: '/images/70-30-brd.gif',
-    type: '/views/items/70-30-brd.html',
-  }, {
-    id: 9,
-    name: 'Bloc 30% 70%',
-    src: '/images/30-70.gif',
-    dsc: 'Bloc de contenu en deux colonnes de tailles différentes',
-    srcTpl: '/images/30-70.gif',
-    type: '/views/items/30-70.html',
-  }, {
-    id: 10,
-    name: 'Bloc 30% 70% bordures',
-    src: '/images/30-70-brd.gif',
-    dsc: 'Bloc de contenu en deux colonnes de tailles différentes avec bordures',
-    srcTpl: '/images/30-70-brd.gif',
-    type: '/views/items/30-70-brd.html',
-  }, {
-    id: 11,
-    name: 'Bloc 30% 30% 30%',
-    src: '/images/30-30-30.gif',
-    dsc: 'Bloc de contenu en Trois colonnes',
-    srcTpl: '/images/30-30-30.gif',
-    type: '/views/items/30-30-30.html',
-  }, ];
+  $scope.headers = null;
+  $scope.footers = null;
+  $scope.contents = null;
+
+
+  $http.get('/services/header-blocs/').then(function(res) {
+    if (res.data) {
+      $scope.headers = res.data;
+    } else {};
+  }, function(err) {});
+  $http.get('/services/footer-blocs/').then(function(res) {
+    if (res.data) {
+      $scope.footers = res.data;
+    } else {};
+  }, function(err) {});
+  $http.get('/services/contents-blocs/').then(function(res) {
+    if (res.data) {
+      $scope.contents = res.data;
+    } else {};
+  }, function(err) {});
+
+
 });

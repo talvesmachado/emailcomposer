@@ -1,0 +1,18 @@
+<div class="fluid">
+<!-- background wrapper (100% background-color) -->
+<table cellpadding="0" cellspacing="0" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" border="0" id="backgroundTable" width="100%">
+  <tr>
+    <td align="center" valign="top" class="main-td">
+      <!-- MAIN WRAPPER TABLES (640px) -->
+      <table align="center" cellpadding="0" cellspacing="0" border="0" class="container" width="100%">
+        <!--  LIGNE DU TEMPLATE EMAIL -->
+        <tr ng-repeat="item in list" ng-include="item.type">
+        </tr>
+        <!--  / LIGNE DU TEMPLATE EMAIL -->
+      </table>
+      <!-- /MAIN WRAPPER TABLES -->
+    </td>
+  </tr>
+</table>
+<!-- /background wrapper -->
+</div>

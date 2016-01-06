@@ -26,9 +26,9 @@ angular
       $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|data):/);
       // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
       $routeProvider
-        .when('/', {
-          templateUrl: '/views/main.html',
-          controller: 'MainCtrl'
+        .when('/snapshot/:id', {
+          templateUrl: '/views/snapshot.html',
+          controller: 'SnapshotCtrl'
         })
         .when('/', {
           templateUrl: '/views/main.html',

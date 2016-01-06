@@ -12,14 +12,13 @@ router.get(['/', '/templates/*'], function(req, res, next) {
   });
   //res.sendfile('./app/index.html');
 });
-/*router.get('/templates/:id', function(req, res, next) {
+router.get('/snapshot/*', function(req, res, next) {
 
-  res.render('index', {
+  res.render('index-snapshot', {
     layout: false,
-    title: 'Express',
-    id: req.params.id
+    title: 'SnapShot'
   });
 
-});*/
+});
 
 module.exports = router;
