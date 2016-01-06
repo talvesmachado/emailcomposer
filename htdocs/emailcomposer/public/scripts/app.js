@@ -21,11 +21,15 @@ angular
     'ngMaterial',
   ])
   .config([
-    '$compileProvider','$routeProvider', '$locationProvider',
+    '$compileProvider', '$routeProvider', '$locationProvider',
     function($compileProvider, $routeProvider, $locationProvider) {
       $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|data):/);
       // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
       $routeProvider
+        .when('/', {
+          templateUrl: '/views/main.html',
+          controller: 'MainCtrl'
+        })
         .when('/', {
           templateUrl: '/views/main.html',
           controller: 'MainCtrl'
@@ -35,9 +39,9 @@ angular
           controller: 'MainCtrl'
         });
 
-        $locationProvider.html5Mode({
-   enabled: true,
-   requireBase: false
- });
+      $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+      });
     }
   ])
