@@ -3,11 +3,11 @@
     <md-button aria-label="Add..." class="md-fab md-warn"><md-icon md-font-icon="material-icons">menu</md-icon></md-button>
   </md-fab-trigger>
   <md-fab-actions >
-    <md-button aria-label="Add header" class="md-fab  md-primary md-mini" ng-click="forcedownload()">
+    <md-button aria-label="Add header" class="md-fab  {{ templateID ? 'md-primary': 'md-warn' }}  md-mini" ng-click="forcedownload()">
       <md-tooltip md-direction="left">
-        Export to img
+        {{ templateID ? 'Export to img': 'Save this draft' }}
       </md-tooltip>
-      <md-icon class="material-icons">image</md-icon>
+      <md-icon class="material-icons">{{ templateID ? 'image': 'save' }}</md-icon>
     </md-button>
 
 
