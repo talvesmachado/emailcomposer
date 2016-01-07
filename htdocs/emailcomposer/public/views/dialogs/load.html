@@ -1,5 +1,16 @@
-<md-dialog aria-label="List dialog">
+<md-dialog aria-label="Wait dialog">
+  <md-toolbar>
+  <div class="md-toolbar-tools">
+    <h2>Please wait</h2>
+    <span flex></span>
+  </div>
+</md-toolbar>
   <md-dialog-content>
-    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    <div layout="row" layout-align="center center">
+      <md-progress-circular md-mode="indeterminate" md-diameter="120" class="md-accent md-hue-1"></md-progress-circular>
+    </div>
+    <div layout="row" layout-align="space-around" layout-padding="50">
+      <p>We produce your images.<br>A mobile version and a desktop version.<br> Be patient, we hope you enjoy all we do to facilitate your work.</p>
+    </div>
   </md-dialog-content>
 </md-dialog>

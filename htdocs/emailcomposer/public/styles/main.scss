@@ -94,6 +94,9 @@ html {
 body {
   background: #F7F6F5;
 }
+.content-wrapper {
+  background-color: #F7F6F5;
+}
 // -------------------------------------------
 // -------------------------------------------
 //  /$$      /$$ /$$$$$$$$ /$$   /$$ /$$   /$$
@@ -175,6 +178,9 @@ md-switch:last-of-type {
   height: 100vh;
   z-index: 1;
   text-align: center;
+  .padded-div{
+    padding: 20px;
+  }
   &:after {
     content: "";
     background: url(../images/browser.png) top left no-repeat;

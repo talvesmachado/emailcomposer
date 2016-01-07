@@ -101,15 +101,15 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
     // Si le template n'existe pas => enregistrement en base
   $scope.forcedownload = function() {
       if ($scope.templateObj) {
-        $scope.showAlert();
+        // ouverture d'une dialogue d'attente
+        $scope.showDialogWait();
         //$scope.synchPutToMongo();
         $http.get('/services/snapshot/' + $scope.templateID)
           .then(function(res) {
             // it return obj
             $scope.imgToDownload = res.data;
-            console.log($scope.imgToDownload)
-            $scope.showImagesLinks();
-
+            // MAJ de la dialogue avec les liens des images à télecharger
+            $scope.showDialogImageLinks();
           }, function(err) {
             // No obj
             console.log(err);
@@ -126,8 +126,7 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
   $scope.closeDialog = function() {
     $mdDialog.hide();
   }
-  $scope.showAlert = function(ev) {
-
+  $scope.showDialogWait = function(ev) {
     $mdDialog.show({
       templateUrl: '/views/dialogs/load.html',
       targetEvent: ev,
@@ -136,7 +135,7 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
       clickOutsideToClose: false
     });
   };
-  $scope.showImagesLinks = function(ev) {
+  $scope.showDialogImageLinks = function(ev) {
     $mdDialog.show({
       templateUrl: '/views/dialogs/result-imgs.html',
       targetEvent: ev,
