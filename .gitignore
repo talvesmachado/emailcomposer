@@ -1,5 +1,7 @@
 .vagrant
 .bundle
+htdocs/emailcomposer/public/images/screens/*
+
 # Created by https://www.gitignore.io/api/node,osx,bower
 
 ### Node ###
