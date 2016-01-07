@@ -1,0 +1,16 @@
+<md-dialog aria-label="Download dialog">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Templte HTML generated</h2>
+      <span flex></span>
+    </div>
+</md-toolbar>
+  <md-dialog-content>
+    <div layout="row" layout-align="space-around" layout-padding="50">
+{{ ctrl.structureHTML }}
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button ng-click="ctrl.parent.closeDialog()" class="md-raised md-primary">Close</md-button>
+  </md-dialog-actions>
+</md-dialog>

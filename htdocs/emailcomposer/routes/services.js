@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var phantom = require('phantom');
 var Pageres = require('pageres');
+var fs = require('fs');
 
 var mongoose = require('mongoose');
 var template = require('../models/template.js');
@@ -20,7 +21,7 @@ var template = require('../models/template.js');
                                                                                                888
 */
 router.get('/template', function(req, res, next) {
-  template.find(function (err, todos) {
+  template.find(function(err, todos) {
     if (err) return next(err);
     res.json(todos);
   });
@@ -42,13 +43,13 @@ router.post('/template', function(req, res, next) {
   });
 });
 router.put('/template/:id', function(req, res, next) {
-  template.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+  template.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
 router.delete('/template/:id', function(req, res, next) {
-  template.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+  template.findByIdAndRemove(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
@@ -64,18 +65,88 @@ router.delete('/template/:id', function(req, res, next) {
 8888888 888       888 d88P     888  "Y8888P88 8888888888       "Y8888P88 8888888888 888    Y888 8888888888 888   T88b d88P     888     888     "Y88888P"  888   T88b
 */
 router.get('/snapshot/:id', function(req, res, next) {
-var myURL = "localhost:4500/snapshot/"+req.params.id;
-console.log('CALLED = ' + req.params.id)
+  var myURL = "localhost:4500/snapshot/" + req.params.id;
+  console.log('CALLED = ' + req.params.id)
 
-  var pageres = new Pageres({delay: 2})
-      .src(myURL, ['640x580', 'iphone 4s'], {crop: false})
-      .dest(__dirname+'./../public/images/screens/'+req.params.id)
-      .run()
-      .then(function(result){
-        console.log('done');
-        console.log(result);
-        res.json(result)
-      });
+  var pageres = new Pageres({
+      delay: 2
+    })
+    .src(myURL, ['640x580', 'iphone 4s'], {
+      crop: false
+    })
+    .dest(__dirname + './../public/images/screens/' + req.params.id)
+    .run()
+    .then(function(result) {
+      console.log('done');
+      console.log(result);
+      res.json(result)
+    });
+});
+
+router.get('/sourcecode/:id', function(req, res, next) {
+  //var myURL = "http://localhost:4500/snapshot/" + req.params.id;
+  var output = '';
+  fs.readFile(__dirname + '/../public/styles/snapshot.css', {
+    encoding: 'utf-8'
+  }, function(err, css) {
+    output = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">' +
+      '<html lang="fr">' +
+      '<head>' +
+      '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' +
+      '<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- So that mobile will display zoomed in -->' +
+      '<meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- enable media queries for windows phone 8 -->' +
+      '<meta name="format-detection" content="telephone=no"> <!-- disable auto telephone linking in iOS -->' +
+      '<title>gabs responsive</title>' +
+      '<link rel="stylesheet" type="text/css" />' +
+      '<style type="text/css" media="screen">'+String(css)+'</style>'+
+      '</head>' +
+      '<body>' +
+      '<!-- background wrapper (100% background-color) -->' +
+      '<table cellpadding="0" cellspacing="0" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" border="0" id="backgroundTable" width="100%">' +
+      '  <tr>' +
+      '<td align="center"  valign="top" class="main-td">' +
+      '  <!-- MAIN WRAPPER TABLES (640px) -->' +
+      '  <table align="center" cellpadding="0" cellspacing="0" border="0" class="container" width="640">' +
+      '<!--  IMAGE DESKTOP => BACKGROUND ON MOBILE -->' +
+      '<tr>';
+    template.findById(req.params.id, function(err, post) {
+      if (err) {
+        if (err.name == "CastError") res.sendStatus(404);
+        else return next(err)
+      };
+      var loadedFiles = 0;
+      for (var i = 0; i <= post.list.length-1; i++) {
+        fs.readFile(__dirname + '/../public' + post.list[i].type, {
+          encoding: 'utf-8'
+        }, function(err, data) {
+          if (!err) {
+            output += String(data);
+            loadedFiles ++;
+            if (loadedFiles == post.list.length) {
+              output += '</tr>' +
+                '<!--  / TEMPLATE 3 COLS -->' +
+                '</table>' +
+                '<!-- /MAIN WRAPPER TABLES -->' +
+                '</td>' +
+                '</tr>' +
+                '</table>' +
+                '<!-- /background wrapper -->' +
+                '</body>' +
+                '</html>';
+              res.json(output)
+            }else{
+              output += '</tr>' +
+                '<!--  / TEMPLATE 3 COLS -->' +
+                '<tr>';
+            }
+          } else {
+            console.log(err);
+          }
+        });
+      };
+
+    });
+  });
 });
 
 /*

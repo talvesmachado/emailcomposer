@@ -231,19 +231,21 @@ md-switch:last-of-type {
     background-color: #fafafa;
     //background: url(../images/browser.png) top left no-repeat #fafafa;
 
-        div[dnd-list] {
+    ul[dnd-list] {
       min-height: 500px;
       z-index: 1;
+      padding-bottom:150px;
     }
-    div[dnd-list],
-    div[dnd-list] > div {
+    ul[dnd-list],
+    ul[dnd-list] > li {
       position: relative;
       min-height: 150px;
       margin: 0;
       padding-left: 0;
       cursor: pointer;
+      list-style: none;
     }
-    .dropzone div {
+    .dropzone ul {
       background-color: #fff;
       border: 1px solid #ddd;
       display: block;
@@ -254,8 +256,10 @@ md-switch:last-of-type {
     }
     .dndPlaceholder {
       background-color: #E74C3C;
-      min-height: 42px;
+      min-height: 100px;
       display: block;
+      clear: both;
+      overflow: hidden;
       position: relative;
     }
     //----
@@ -327,6 +331,9 @@ md-switch:last-of-type {
   img[class*="mobile-fluid-img"] {
     width: 100% !important;
     height: auto !important;
+  }
+  ul[dnd-list] > li {
+    min-height: 50px !important;
   }
   img[class*="mobile-hide"],
   div[class*="mobile-hide"],

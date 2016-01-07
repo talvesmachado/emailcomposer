@@ -143,9 +143,29 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
       controllerAs: 'ctrl',
       clickOutsideToClose: true
     });
+  };
+  $scope.showDialogHTML = function(ev) {
+
+    var myHTML = null;
+
+    $http.get('/services/sourcecode/' + $scope.templateID)
+      .then(function(res) {
+        console.log(res);
+        myHTML = res.data;
+      }, function(err) {
+        // No obj
+        console.log(err);
+      });
+
+    $mdDialog.show({
+      templateUrl: '/views/dialogs/result-html.html',
+      targetEvent: ev,
+      controller: function () { this.parent = $scope; this.structureHTML =  myHTML},
+      controllerAs: 'ctrl',
+      clickOutsideToClose: true
+    });
 
   };
-
   /*
   .d8888b.        d8888 888      888           88888888888 .d88888b.       8888888b.  8888888888 .d8888b. 88888888888             d8888 8888888b.  8888888b.
  d88P  Y88b      d88888 888      888               888    d88P" "Y88b      888   Y88b 888       d88P  Y88b    888                d88888 888   Y88b 888   Y88b

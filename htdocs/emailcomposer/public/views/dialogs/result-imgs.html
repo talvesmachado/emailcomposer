@@ -12,6 +12,7 @@
     <md-button download="{{ key == 0 ? ctrl.parent.templateID+'-desktop.png': ctrl.parent.templateID+'-phone.png' }}" href="/images/screens/{{ ctrl.parent.templateID }}/{{ value.filename }}" class="md-accent md-raised" target="_blank" ng-repeat="(key, value) in ctrl.parent.imgToDownload" >{{key == 0 ? 'Desktop Format' : 'Mobile format'}}  <md-icon class="material-icons">{{ key == 0 ? 'desktop_mac': 'phone_iphone' }}</md-icon></md-button><br>
   </md-dialog-content>
   <md-dialog-actions>
-    <md-button ng-click="ctrl.parent.closeDialog()" class="md-raised md-primary">Terminer</md-button>
+    <md-button ng-click="ctrl.parent.showDialogHTML()" class="md-raised md-primary">get HTML</md-button>
+    <md-button ng-click="ctrl.parent.closeDialog()" class="md-raised md-primary">Close</md-button>
   </md-dialog-actions>
 </md-dialog>
