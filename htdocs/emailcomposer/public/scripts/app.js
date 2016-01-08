@@ -45,3 +45,9 @@ angular
       });
     }
   ])
+
+  function replaceText(str)
+  {
+      var str1 = String(str);
+      return str1.replace(/\n/g,"<br/>");
+  }

@@ -40,7 +40,8 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
           $location.path('/');
         };
       }, function(err) {
-        console.log(err)
+        console.log(err);
+        $location.path('/');
       });
     }
     // Si un ID est déclaré dans l'URL, la méthode INIT est lancée
@@ -146,24 +147,27 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
   };
   $scope.showDialogHTML = function(ev) {
 
-    var myHTML = null;
+    $scope.myHTML = null;
 
     $http.get('/services/sourcecode/' + $scope.templateID)
       .then(function(res) {
         console.log(res);
-        myHTML = res.data;
+        $scope.myHTML = res.data;
+
+        $mdDialog.show({
+          templateUrl: '/views/dialogs/result-html.html',
+          targetEvent: ev,
+          controller: function () { this.parent = $scope; this.structureHTML =  $scope.myHTML},
+          controllerAs: 'ctrl',
+          clickOutsideToClose: true
+        });
+
       }, function(err) {
         // No obj
         console.log(err);
       });
 
-    $mdDialog.show({
-      templateUrl: '/views/dialogs/result-html.html',
-      targetEvent: ev,
-      controller: function () { this.parent = $scope; this.structureHTML =  myHTML},
-      controllerAs: 'ctrl',
-      clickOutsideToClose: true
-    });
+
 
   };
   /*
