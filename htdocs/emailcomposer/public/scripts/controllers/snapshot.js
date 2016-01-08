@@ -20,7 +20,7 @@ angular.module('emailcomposerApp').controller('SnapshotCtrl', function($scope, $
           $scope.templateObj = res.data;
           $scope.list = res.data.list;
         } else {
-          $location.path('/');
+          location.replace('/');
         };
       }, function(err) {
         console.log(err)

@@ -1,6 +1,5 @@
-/* Launch Database management */
+// Lancement de la gestion BDD au start du serveur NODE
 require('../emailcomposer/node_modules/mongo-express/app.js');
-
 
 var express = require('express');
 var path = require('path');
@@ -8,47 +7,52 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var exphbs  = require('express-handlebars');
-
+var exphbs = require('express-handlebars');
+var auth = require('basic-auth');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var services = require('./routes/services');
 
+var utils = require('./helpers/utils');
+
 var sassMiddleware = require('node-sass-middleware');
 
+// Connexion BDD
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/emailcomposer', function(err) {
-    if(err) {
-        console.log('connection error', err);
-    } else {
-        console.log('connection successful');
-    }
+  if (err) {
+    console.log('connection error', err);
+  } else {
+    console.log('connection successful');
+  }
 });
 
-
+// Declaration de l'APP express
 var app = express();
-
+// Utilisation de SASS pour compiler les CSS
 app.use(sassMiddleware({
-    /* Options */
-    src: __dirname+'/public',
-    dest: __dirname+'/public',
-    debug: true,
-    outputStyle: 'compressed',
-//    prefix:  '/prefix'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
+  /* Options */
+  src: __dirname + '/public',
+  dest: __dirname + '/public',
+  debug: true,
+  outputStyle: 'compressed',
+  //    prefix:  '/prefix'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
 }));
-
-// view engine setup
+// Septup de Système de View sous HandleBars
 app.set('views', path.join(__dirname, 'views'));
 //app.set('view engine', 'jade');
-
-app.engine('html', exphbs({defaultLayout: 'main'}));
+app.engine('html', exphbs({
+  defaultLayout: 'main'
+}));
 app.set('view engine', 'html');
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
-// uncomment after placing your favicon in /public.
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -60,6 +64,9 @@ app.use(function(req, res, next) {
   next();
 });
 
+
+//app.use('/snapshot/', utils.basicAuth(false));
+//app.use('/', utils.basicAuth(true));
 
 app.use('/', routes);
 app.use('/users', users);
@@ -75,7 +82,7 @@ app.use(function(req, res, next) {
 // error handlers
 
 // development error handler
-app.set('env', 'development');
+// app.set('env', 'production');
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
