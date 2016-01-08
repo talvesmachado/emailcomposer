@@ -1,10 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var phantom = require('phantom');
 var Pageres = require('pageres');
 var fs = require('fs');
 
-var mongoose = require('mongoose');
 var template = require('../models/template.js');
 
 /*
