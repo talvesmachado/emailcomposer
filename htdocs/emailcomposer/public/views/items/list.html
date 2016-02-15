@@ -1,0 +1,10 @@
+<ul dnd-list="list" class="contenttodraw">
+  <li ng-repeat="item in list" dnd-draggable="item" dnd-effect-allowed="move" dnd-moved="list.splice($index, 1); hideTrash(); " dnd-selected="selected = item" ng-class="{selected: selected === item}" dnd-dragstart="showTrash()" dnd-drop="">
+    <table align="center" cellpadding="0" cellspacing="0" border="0" class="container" width="100%">
+      <!--  LIGNE DU TEMPLATE EMAIL -->
+      <tr ng-include="item.type">
+      </tr>
+      <!--  / LIGNE DU TEMPLATE EMAIL -->
+    </table>
+  </li>
+</ul>

@@ -8,6 +8,9 @@
         <h4>Title</h4>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque labore, reiciendis qui, ratione maxime debitis. Accusamus, eaque, consectetur! Possimus harum, reiciendis commodi, totam magnam non dolorem dolores pariatur obcaecati laudantium.</p>
       </div>
+      <!--  CONTENT -->
+      <div ng-repeat="list in item.childs[0]" ng-include="'/views/items/list.html'"></div>
+
         </td>
       </tr>
     </table>
@@ -20,6 +23,8 @@
         <h4>Title</h4>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque labore, reiciendis qui, ratione maxime debitis. Accusamus, eaque, consectetur! Possimus harum, reiciendis commodi, totam magnam non dolorem dolores pariatur obcaecati laudantium.</p>
       </div>
+      <!--  CONTENT -->
+      <div ng-repeat="list in item.childs[1]" ng-include="'/views/items/list.html'"></div>
 
         </td>
       </tr>
@@ -33,6 +38,8 @@
         <h4>Title</h4>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque labore, reiciendis qui, ratione maxime debitis. Accusamus, eaque, consectetur! Possimus harum, reiciendis commodi, totam magnam non dolorem dolores pariatur obcaecati laudantium.</p>
       </div>
+      <!--  CONTENT -->
+      <div ng-repeat="list in item.childs[2]" ng-include="'/views/items/list.html'"></div>
 
         </td>
       </tr>

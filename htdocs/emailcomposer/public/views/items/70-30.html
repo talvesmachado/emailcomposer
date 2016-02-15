@@ -10,8 +10,8 @@
           <br>
           <strong>1 |</strong> It's worse than being in the whirled woods, the last day of the year! Who'd go climbing after chestnuts now? But there they go, all cursing, and here I don't.<br><br><br><br>
         </div>
-        <br>
-        <br>
+        <!--  CONTENT -->
+        <div ng-repeat="list in item.childs[0]" ng-include="'/views/items/list.html'"></div>
       </td>
     </tr>
   </table>
@@ -26,8 +26,8 @@
           <br>
           <strong>2 |</strong> White squalls? white whale, shirr! shirr! Here have I heard all their chat just now, and the white whale—shirr! shirr!—but spoken of once! and&hellip;
         </div>
-        <br>
-        <br>
+        <!--  CONTENT -->
+        <div ng-repeat="list in item.childs[1]" ng-include="'/views/items/list.html'"></div>
       </td>
     </tr>
   </table>

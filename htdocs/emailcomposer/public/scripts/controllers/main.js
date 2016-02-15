@@ -17,6 +17,7 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
   $scope.selectedType = 2;
   //  $scope.selected = null;
   // Liste des objets composant le contenu du template
+  $scope.selected = null;
   $scope.list = [];
   // template Angular associé au controler
   //  $scope.templateUrl = '/views/main.html';
@@ -25,6 +26,11 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
   $scope.templateObj = null;
   // Tableau comportant les images à downloader
   $scope.imgToDownload  = null;
+
+  $scope.tellme = function(){
+    console.log("######");
+    console.log($scope.list);
+  }
   // Vérification en Base de l'existance du template
   $scope.init = function() {
       $http.get('/services/template/' + $scope.templateID).then(function(res) {
@@ -94,6 +100,7 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
     }
     //  Si le template est existant, Mise à jour de la liste du template => Sync avec la base Mongo
   $scope.updateCanvas = function() {
+    console.log("updateCanvas");
       if ($scope.templateObj) {
         $scope.synchPutToMongo();
       };
@@ -119,10 +126,11 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
         $scope.synchPostToMongo();
       }
     }
-    // Ecoute du changement de la liste du template
-  $scope.$watchCollection('list', function() {
+    // Ecoute du changement de la liste du template || UPDATE => placé sur l'event du DRAG car pas lancé à l'ajout d'enfants
+  $scope.$watch('list', function() {
+    console.log("UPDATED CANVAS")
     $scope.updateCanvas();
-  });
+  }, true);
 
   $scope.closeDialog = function() {
     $mdDialog.hide();
@@ -170,6 +178,11 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
 
 
   };
+  $scope.setWidth = function(item) {
+    console.log(item);
+    return 640;
+  };
+
   /*
   .d8888b.        d8888 888      888           88888888888 .d88888b.       8888888b.  8888888888 .d8888b. 88888888888             d8888 8888888b.  8888888b.
  d88P  Y88b      d88888 888      888               888    d88P" "Y88b      888   Y88b 888       d88P  Y88b    888                d88888 888   Y88b 888   Y88b

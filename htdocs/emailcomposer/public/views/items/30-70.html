@@ -10,8 +10,8 @@
           <br>
           <strong>1 |</strong> It's worse than being in the whirled woods, the last day of the year! Who'd go climbing after chestnuts now? But there they go, all cursing, and here I don't.
         </div>
-        <br>
-        <br>
+        <!--  CONTENT -->
+        <div ng-repeat="list in item.childs[0]" ng-include="'/views/items/list.html'"></div>
       </td>
     </tr>
   </table>
@@ -29,8 +29,8 @@
           <br><br>
           <br>
         </div>
-        <br>
-        <br>
+        <!--  CONTENT -->
+        <div ng-repeat="list in item.childs[1]" ng-include="'/views/items/list.html'"></div>
       </td>
     </tr>
   </table>

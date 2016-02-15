@@ -190,6 +190,7 @@ var contents = [{
   dsc: 'Full page block',
   srcTpl: '/images/100.gif',
   type: '/views/items/100.html',
+  childs: [[]],
 }, {
   id: 4,
   name: 'Block 100% padded',
@@ -197,6 +198,7 @@ var contents = [{
   dsc: 'Full page block with padding',
   srcTpl: '/images/100-brd.gif',
   type: '/views/items/100-brd.html',
+  childs: [[]],
 }, {
   id: 5,
   name: 'Block 50% 50%',
@@ -204,6 +206,7 @@ var contents = [{
   dsc: 'Two columns blocks',
   srcTpl: '/images/50-50.gif',
   type: '/views/items/50-50.html',
+  childs: [[[]],[[]]],
 }, {
   id: 6,
   name: 'Block 50% 50% padded',
@@ -211,6 +214,7 @@ var contents = [{
   dsc: 'Two columns blocks with padding',
   srcTpl: '/images/50-50-brd.gif',
   type: '/views/items/50-50-brd.html',
+  childs: [[[]],[[]]],
 }, {
   id: 7,
   name: 'Block 70% 30%',
@@ -218,6 +222,7 @@ var contents = [{
   dsc: 'Two columns blocks with different width',
   srcTpl: '/images/70-30.gif',
   type: '/views/items/70-30.html',
+  childs: [[[]],[[]]],
 }, {
   id: 8,
   name: 'Block 70% 30% padded',
@@ -225,6 +230,7 @@ var contents = [{
   dsc: 'Two columns blocks with different width sith padding',
   srcTpl: '/images/70-30-brd.gif',
   type: '/views/items/70-30-brd.html',
+  childs: [[[]],[[]]],
 }, {
   id: 9,
   name: 'Block 30% 70%',
@@ -232,6 +238,7 @@ var contents = [{
   dsc: 'Two columns blocks with different width',
   srcTpl: '/images/30-70.gif',
   type: '/views/items/30-70.html',
+  childs: [[[]],[[]]],
 }, {
   id: 10,
   name: 'Block 30% 70% padded',
@@ -239,6 +246,7 @@ var contents = [{
   dsc: 'Two columns blocks with different width with padding',
   srcTpl: '/images/30-70-brd.gif',
   type: '/views/items/30-70-brd.html',
+  childs: [[[]],[[]]],
 }, {
   id: 11,
   name: 'Block 30% 30% 30%',
@@ -246,6 +254,7 @@ var contents = [{
   dsc: 'Three columns blocks',
   srcTpl: '/images/30-30-30.gif',
   type: '/views/items/30-30-30.html',
+  childs: [[[]],[[]],[[]]],
 }, ];
 
 //#######################

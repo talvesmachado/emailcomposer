@@ -160,6 +160,8 @@ md-switch:last-of-type {
         }
         img {
           max-width: 100%;
+          max-height: 155px;
+
         }
       }
     }
@@ -285,6 +287,16 @@ md-switch:last-of-type {
       background: $white;
       @include boxshadow( 2px, 2px, 2px, #EEE);
     }
+  }
+}
+.block100 {
+  .dndPlaceholder {
+    background-color: #e67e22 !important;
+  }
+}
+.block5050 {
+  .dndPlaceholder {
+    background-color: #16a085 !important;
   }
 }
 /* CORE MAIL TEMPLATE */
