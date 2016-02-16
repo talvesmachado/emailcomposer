@@ -174,6 +174,7 @@ var headers = [{
   dsc: 'Full page Header',
   srcTpl: '/images/header.gif',
   type: '/views/items/header.html',
+  childs: [[]],
 }];
 var footers = [{
   id: 2,
@@ -182,6 +183,7 @@ var footers = [{
   dsc: 'Full page Footer',
   srcTpl: '/images/footer.gif',
   type: '/views/items/footer.html',
+  childs: [[]],
 }];
 var contents = [{
   id: 3,

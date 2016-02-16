@@ -1,25 +1,29 @@
-<td>
-  <!--[if mso]><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td width="50%" valign="top"><![endif]-->
-  <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="force-row" bgcolor="#e74c3c">
+<td ng-model="item" class="bloc3070">
+  <!--[if mso]><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td width="30%" valign="top"><![endif]-->
+  <table flexible-Width="3" border="0" cellpadding="0" cellspacing="0" align="left" class="force-row">
     <tr>
       <td class="col" valign="top">
-        <img src="/images/220-180-1.jpg" alt="" class="mobile-fluid-img" width="220" height="180">
+        <div class="structure">
+        <img src="/images/220-180-1.jpg" alt="" class="mobile-fluid-img" height="180" flexible-image="3">
         <div class="padded-div">
           <strong>Herman Melville</strong>
           <br>
           <br>
           <strong>1 |</strong> It's worse than being in the whirled woods, the last day of the year! Who'd go climbing after chestnuts now? But there they go, all cursing, and here I don't.
         </div>
+
         <!--  CONTENT -->
         <div ng-repeat="list in item.childs[0]" ng-include="'/views/items/list.html'"></div>
+        </div>
       </td>
     </tr>
   </table>
-  <!--[if mso]></td><td width="50%" valign="top"><![endif]-->
-  <table width="420" border="0" cellpadding="0" bgcolor="#c0392b" cellspacing="0" align="right" class="force-row">
+  <!--[if mso]></td><td width="70%" valign="top"><![endif]-->
+  <table flexible-Width="1.5" border="0" cellpadding="0" cellspacing="0" align="right" class="force-row">
     <tr>
       <td class="col" valign="top">
-        <img src="/images/420-180-1.jpg" alt="" class="mobile-fluid-img" width="420" height="180">
+        <div class="structure">
+        <img src="/images/420-180-1.jpg" alt="" class="mobile-fluid-img" height="180" flexible-image="1.5">
         <div class="padded-div">
           <strong>I am Ishmael</strong>
           <br>
@@ -31,6 +35,7 @@
         </div>
         <!--  CONTENT -->
         <div ng-repeat="list in item.childs[1]" ng-include="'/views/items/list.html'"></div>
+          </div>
       </td>
     </tr>
   </table>

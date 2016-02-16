@@ -240,7 +240,7 @@ md-switch:last-of-type {
     ul[dnd-list] {
       min-height: 500px;
       z-index: 1;
-      padding-bottom:150px;
+      padding-bottom:0px;
     }
     ul[dnd-list],
     ul[dnd-list] > li {
@@ -289,12 +289,32 @@ md-switch:last-of-type {
     }
   }
 }
-.block100 {
+.bloc100 {
+  background-color: #e67e22 !important;
   .dndPlaceholder {
-    background-color: #e67e22 !important;
+    background-color: #d35400 !important;
   }
 }
-.block5050 {
+.bloc5050 {
+  background-color: #3498db !important;
+  .dndPlaceholder {
+    background-color: #2980b9 !important;
+  }
+}
+.bloc3070 {
+  background-color: #e74c3c !important;
+  .dndPlaceholder {
+    background-color: #c0392b !important;
+  }
+}
+.bloc7030 {
+  background-color: #9b59b6 !important;
+  .dndPlaceholder {
+    background-color: #8e44ad !important;
+  }
+}
+.bloc303030 {
+  background-color: #1abc9c !important;
   .dndPlaceholder {
     background-color: #16a085 !important;
   }
@@ -310,7 +330,7 @@ md-switch:last-of-type {
     background-color: #b4b4b4;
   }
   .container {
-    width: 640px;
+//    width: 640px;
     max-width: 640px;
     background-color: #ffffff;
   }

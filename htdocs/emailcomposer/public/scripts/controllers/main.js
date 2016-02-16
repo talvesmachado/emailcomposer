@@ -6,7 +6,7 @@
  * # MainCtrl
  * Controller of the emailcomposerApp
  */
-angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http, $location, $mdDialog) {
+var application = angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http, $location, $mdDialog) {
   // Objest isRWD par défaut (affichage du mail en 640);
   $scope.isRWD = {
     'width': 640,
@@ -27,16 +27,9 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
   // Tableau comportant les images à downloader
   $scope.imgToDownload  = null;
 
-  $scope.tellme = function(){
-    console.log("######");
-    console.log($scope.list);
-  }
   // Vérification en Base de l'existance du template
   $scope.init = function() {
       $http.get('/services/template/' + $scope.templateID).then(function(res) {
-        console.log("INIT ID");
-        console.log(res.data);
-        console.log("**********");
         // Si l'objet éxiste, il est initialisé dans l'application angular
         // Si l'objet n'existe pas l'utilisateur est redirigé sur la racine (template pas encore exporté)
         if (res.data) {
@@ -100,7 +93,6 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
     }
     //  Si le template est existant, Mise à jour de la liste du template => Sync avec la base Mongo
   $scope.updateCanvas = function() {
-    console.log("updateCanvas");
       if ($scope.templateObj) {
         $scope.synchPutToMongo();
       };
@@ -126,9 +118,8 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
         $scope.synchPostToMongo();
       }
     }
-    // Ecoute du changement de la liste du template || UPDATE => placé sur l'event du DRAG car pas lancé à l'ajout d'enfants
-  $scope.$watch('list', function() {
-    console.log("UPDATED CANVAS")
+  // Ecoute du changement de la liste du template
+  $scope.$watch('list', function(newVal, oldVal) {
     $scope.updateCanvas();
   }, true);
 
@@ -178,10 +169,7 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
 
 
   };
-  $scope.setWidth = function(item) {
-    console.log(item);
-    return 640;
-  };
+
 
   /*
   .d8888b.        d8888 888      888           88888888888 .d88888b.       8888888b.  8888888888 .d8888b. 88888888888             d8888 8888888b.  8888888b.
@@ -208,8 +196,8 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
         })
         .then(function(res) {
           // it return obj
-          console.log("###### PUT ######");
-          console.log(res);
+//          console.log("###### PUT ######");
+//          console.log(res);
         }, function(err) {
           // No obj
           console.log(err);
@@ -263,4 +251,44 @@ angular.module('emailcomposerApp').controller('MainCtrl', function($scope, $http
   }, function(err) {});
 
 
+})
+.directive('flexibleWidth', function() {
+    return function(scope, element, attr) {
+      var padding = attr["flxPadding"];
+
+      console.log("flexibleWidth");
+      console.log(element);
+      console.log(element.closest('.structure').closest('table'));
+      console.log(element.closest('.structure').closest('table').attr('data-width'));
+
+      var divider = attr["flexibleWidth"];
+      var myWidth = element.closest('.structure').closest('table').attr('data-width');
+      myWidth = (myWidth%2 == 0)? myWidth : myWidth-1;
+      myWidth = (myWidth)? myWidth/ divider: 640 / divider;
+      myWidth = (padding)? myWidth-(padding*2) : myWidth;
+      myWidth = Math.floor(myWidth);
+      // Get parent elmenets width and subtract fixed width
+      element.attr({
+        width: myWidth ,
+        "data-width": myWidth ,
+      });
+      console.log("**********");
+
+    };
+})
+.directive('flexibleImage', function() {
+    return function(scope, element, attr) {
+//      console.log("flexibleImage");
+
+var divider = attr["flexibleImage"];
+
+      var myWidth = element.parent().width()/ divider;
+//      console.log(element.parent());
+      // Get parent elmenets width and subtract fixed width
+      element.attr({
+        width:"100%",
+      });
+  //    console.log("**********");
+
+    };
 });

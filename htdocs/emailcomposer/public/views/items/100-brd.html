@@ -1,5 +1,13 @@
-<td class="container-padding">
-  <img src="/images/620-400-1.jpg" alt="" class="mobile-fluid-img" width="620" height="480">
-  <!--  CONTENT -->
-  <div ng-repeat="list in item.childs" ng-include="'/views/items/list.html'"></div>
+<td class="container-padding bloc100" ng-model="item">
+  <table flexible-Width="1" flx-padding="10" border="0" cellpadding="0" cellspacing="0" align="left" class="force-row bloc100">
+    <tr>
+      <td class="col" valign="top">
+  <div class="structure">
+    <img src="/images/640-400-1.jpg" alt="" class="mobile-fluid-img" flexible-image="1" height="480">
+    <!--  CONTENT -->
+    <div ng-repeat="list in item.childs" ng-include="'/views/items/list.html'"></div>
+  </div>
+  </td>
+</tr>
+</table>
 </td>
